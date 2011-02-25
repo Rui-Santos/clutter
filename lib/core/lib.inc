@@ -7,10 +7,10 @@ namespace Craft;
 
 //TODO
 //include_once('abstracts.inc');
-//include_once('interfaces.inc');
-//include_once('functions.inc');
+include_once('interfaces.inc');
 include_once('base.inc');
 include_once('config.inc');
+include_once('util.inc');
 //include_once('request.inc');
 //include_once('debug/lib.inc');
 //include_once('drivers/array/lib.inc');
