@@ -1,6 +1,6 @@
 <?php
 
-namespace Craft\util;
+namespace Craft\Util;
 
 /**
  * Useful functions.
