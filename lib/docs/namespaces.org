@@ -1,0 +1,33 @@
+Namespaces
+
+* Craft
+
+Primary Framework Namespace. Used only by the framework itself.
+
+** Drivers
+Contains information about object drivers. May be used by the
+framework and plugin authors to define drivers. Non-core drivers may
+have non-setup code in other namespaces.
+
+** Interfaces
+Object Interface definitions. Used only by the framework itself.
+
+** Plugins
+Contains information about plugins. May be used by the framework and
+plugin authors to define plugins. Non-core plugins may have non-setup
+code in other namespaces.
+
+** Request
+HTTP Request & command line argument handling. Used by the framework
+only.
+
+** Util
+Utility functions provided by the framework. In all truth, this should
+be empty as these functions should find homes in plugins or core
+libraries.
+
+* Config
+Used by the application writer, plugin writers and the framework
+itself. Plugin writers and the framework should always check to see if
+the application writer has already created configurations before
+setting their own.
