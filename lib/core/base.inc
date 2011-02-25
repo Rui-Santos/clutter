@@ -57,7 +57,7 @@ function enablePlugin($name) {
   function loadConfigINI($file) {
     $vals = parse_ini_file($file,TRUE);
     $isEvil = 'namespace \Config;
-  class '.basename($file).' extends \anApp\core\ConfigINI {
+  class '.basename($file).' extends \Config\INI\Prototype {
   ';
     foreach ($vals as $key => $val) {
       if (is_array($val)) {

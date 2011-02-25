@@ -2,7 +2,7 @@
 
 namespace Config {
 
-	class Prototype {};
+	abstract class Prototype {};
 
   class Routes {
     /**
@@ -60,6 +60,12 @@ namespace Config {
           }, 'Default Index Component');
     }
   }
+}
+
+namespace Config\INI {
+
+	abstract class Prototype extends \Config\Prototype {};
+
 }
 
 ?>
