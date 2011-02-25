@@ -1,0 +1,8 @@
+CraftPHP Random Notes
+
+* Request
+** Leave Functions (GPC) alone.
+** Objects
+Turn \Craft\Request\Validator && \Craft\Request\ValidatorArray into
+\Craft\Object and \Craft\Collection (respectively) with array driver &
+validator mixin.

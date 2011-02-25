@@ -16,7 +16,7 @@ common/dev.*
 # API Cache
 api/cache/*
 # Personal Notes
-notes.org
+/notes.org
 # git subdirs
 */.git/*
 */*/.git/*
