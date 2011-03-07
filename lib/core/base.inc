@@ -102,6 +102,36 @@ function enablePlugin($name) {
   interface Exception {};
   class CraftException extends \Exception implements Exception {};
   class CraftPluginException extends \RuntimeException implements Exception {};
+
+/**
+ * This is used by the \Craft\Object interface when using closures as mixins.
+ */
+class dummyMixin implements \Craft\Interfaces\Mixin {
+	public $name = "";
+	public $closure = NULL;
+	private $container;
+	
+	public function __construct($name, $closure) {
+		$this->name = $name;
+		$this->closure = $closure;
+	}
+
+	public function __call($m, $a) {
+		return call_user_func_array($this->closure, $a);
+	}
+
+	public function setContainer(&$container) {
+		$this->container &= $container;
+	}
+
+	public function provides($name = NULL) {
+		if ($name != NULL) {
+			return ($name == $this->name);
+		}
+		return array($this->name);
+	}
+
 }
 
+}
 ?>

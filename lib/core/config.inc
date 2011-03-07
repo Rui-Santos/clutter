@@ -26,6 +26,7 @@ namespace Config {
      * @param closure $action Anonymous function to call if matched. Passes the $matches array from preg_match.
      */
     public static function add ($priority, $pattern, $action, $label = "No Label") {
+			//TODO: add support for {:name:regex} style matching a la https://github.com/auraphp/aura.router/blob/master/src/Route.php
       self::$list[$priority][$pattern] = array(
         	'action' => $action,
         	'label' => $label);

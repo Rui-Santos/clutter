@@ -15,8 +15,12 @@ interface Plugin {
 }
 
 interface Mixin {
+	// It's up to the mixin if they care about the containing object. But it will be set no matter what.
+	public function setContainer(&$container);
 	// This should return an array of features provided by the mixin.
-	public static function provides();
+	public function provides($name = NULL);
 }
+
+interface Driver extends Mixin {}
 
 ?>
