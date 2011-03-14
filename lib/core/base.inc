@@ -6,11 +6,11 @@ function enablePlugin($name) {
     if (file_exists(APP_LIB."plugins".DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR."lib.inc")) {
       //internal plugin.
       $loaded = include_once(APP_LIB."plugins".DIRECTORY_SEPARATOR.$name.DIRECTORY_SEPARATOR."lib.inc");
-    } else if (APP_PLUGINS !== FALSE && file_exists(APP_PLUGINS.$name.DIRECTORY_SEPARATOR."lib.inc")) {
-      $loaded = include_once(APP_PLUGINS.$name."/lib.inc");
+    } else if (APP_PLUGIN_DIR !== FALSE && file_exists(APP_PLUGIN_DIR.$name.DIRECTORY_SEPARATOR."lib.inc")) {
+      $loaded = include_once(APP_PLUGIN_DIR.$name."/lib.inc");
     }
     if (!$loaded) {
-      throw new anAppPluginException("Unable to locate plugin $name.");
+      throw new CraftPluginException("Unable to locate plugin $name.");
     } else {
       $ns = "\\Craft\\Plugins\\".$name;
       $plugin = new $ns;

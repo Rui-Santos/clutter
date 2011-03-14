@@ -21,6 +21,9 @@ interface Mixin {
 	public function provides($name = NULL);
 }
 
-interface Driver extends Mixin {}
+interface Driver extends Mixin {
+	//function to return a result set.
+	public function query();
+}
 
 ?>
