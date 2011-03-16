@@ -1,0 +1,8 @@
+<?php
+
+class Rdio extends \Config\prototype {
+	const appkey = '--your app key here--';
+	const sharedSecret = '-- your secret here--';
+}
+
+?>
