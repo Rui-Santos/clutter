@@ -5,6 +5,7 @@ abstract class Object {
 	public $template = NULL;
 	public static $mixins = NULL;
 	public static $driver = NULL;
+	public static $options = NULL;
 
 	public function getParents($class=null, $plist=array()) {
     $class = $class ? $class : $this;

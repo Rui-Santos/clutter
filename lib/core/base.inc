@@ -98,9 +98,68 @@ function enablePlugin($name) {
     }
   } // End addIncludePath
 
+	function Register($class, $myOptions = array()) {
+		if ( is_array( $class ) ) {
+			foreach ( $class as $className => $myOptions ) {
+				if ( is_string( $myOptions ) && is_numeric( $className ) ) {
+					\Craft\Register( $myOptions );
+				} else {
+					\Craft\Register( $className, $myOptions );
+				}
+			}
+		} else {
+			// Behold the evals. Evals are evil. However, since class_alias is a load of hogwash, this will have to do. If you do not want evals done, then you can manually extend the thing.
+    if ( is_string( $class ) ) {
+      $extended = explode( '\\', $class );
+      $evil = '';
+      if ( count( $extended ) > 1 ) {
+        $class = array_pop( $extended );
+        $evil = 'namespace ' . implode( '\\', $extended ) . ';
+';
+      } 
+      $inflected = \Craft\util\Inflect::pluralize( $class );
+      if ($class == $inflected) {
+        $class = \Craft\util\Inflect::singularize($inflected);
+      }
+      $evil .= 'class ' . $class . ' extends \Craft\Object { };
+#class ' . $inflected . ' extends \Craft\Collection { };';
+      eval( $evil );
+      
+			//      Factory::associate( $inflected, $class ); //Shortcut to not have to singluarize inside the factory.
+      if ( is_array( $myOptions ) ) {
+        $defaultOptions = array ( 
+          'factoryType' => $inflected,
+					'jsonOptions' => JSON_FORCE_OBJECT, 
+					'format' => 'json', //format can also be a lambda that gets $this as the argument
+					//					'idField' => strtolower($class) . 'ID', 
+					//					'table' => strtolower( $inflected ) 
+        );
+        $class::$options = array_merge( $defaultOptions, $myOptions );
+				if (isset($myOptions['driver'])) {
+					if (is_array($myOptions['driver'])) {
+						$driver = $myOptions['driver']['class'];
+						$dConfig = $myOptions['driver']['config'];
+					} else {
+						$driver = $myOptions['driver'];
+						$dConfig = array();
+					}
+					$driver = "\\Craft\\Drivers\\".$driver;
+					$class::$driver = new $driver($dConfig);
+				}
+      } else {
+        throw new CraftConfigurationException( 'Unable to set options for class: ' . $class );
+      }
+    } else {
+      throw new CraftConfigurationException( 'Unable to create class: ' . $class );
+    }
+
+
+		}
+	} // End Register
 
   interface Exception {};
   class CraftException extends \Exception implements Exception {};
+	class CraftConfigurationException extends CraftException implements Exception {};
   class CraftPluginException extends \RuntimeException implements Exception {};
 
 /**

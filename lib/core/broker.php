@@ -121,22 +121,26 @@ if (\Config\Broker::enableDefaultRoutes === TRUE) {
 	\Config\Routes::addDefaultRoutes();
 }
 
-foreach (\Config\Routes::$list as $priority => $routes) {
-  $matched = FALSE;
-  foreach ($routes as $pattern => $action) {
+$matched = FALSE;
+foreach (array_reverse(\Config\Routes::$list) as $priority => $routes) {
+	if (!$matched) { 
+ foreach ($routes as $pattern => $action) {
     $pMatches = array();
-    if (preg_match($pattern, APP_URI, $pMatches)) {
+    if (!$matched && preg_match($pattern, APP_URI, $pMatches)) {
 			$matched = $action['action']($pMatches); // we just called the
 																							 // lambda that matches
 																							 // our url pattern. If
 																							 // it returns false, it
 																							 // wasn't a real match.
+		}
 			if (!$matched) {
 				//Insert debug info here.
-			}
+			} else {
 			break;
-    }
+			}
   }
+}
+}
   if (!$matched) {
     header("HTTP/1.0 404 Not Found");
     if (!@include(\Config\Routes::$notFound)) {
@@ -144,5 +148,5 @@ foreach (\Config\Routes::$list as $priority => $routes) {
     }
     exit;
   }
-}
+
 ?>

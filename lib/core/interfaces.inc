@@ -22,6 +22,8 @@ interface Mixin {
 }
 
 interface Driver extends Mixin {
+	//we always pass a driver the options used to create the Craft\Object
+	public function __construct($options);
 	//function to return a result set.
 	public function query();
 }
