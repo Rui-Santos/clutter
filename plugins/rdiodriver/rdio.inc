@@ -69,6 +69,15 @@ class Rdio extends \Craft\Object implements \Craft\Interfaces\Driver {
 	public function query() {
 
 	}
+	public function getQueryDetails() {
+
+	}
+	
+	public function isClean() {
+		return TRUE;
+	}
+	
+
   /**
    * Set API URLS
    */
@@ -245,6 +254,7 @@ class Rdio extends \Craft\Object implements \Craft\Interfaces\Driver {
     \curl_setopt($ci, \CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
     \curl_setopt($ci, \CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
     \curl_setopt($ci, \CURLOPT_HEADER, FALSE);
+		\curl_setopt($ci, \CURLINFO_HEADER_OUT, TRUE);
 
     switch ($method) {
       case 'POST':
@@ -252,6 +262,7 @@ class Rdio extends \Craft\Object implements \Craft\Interfaces\Driver {
         if (!empty($postfields)) {
           \curl_setopt($ci, \CURLOPT_POSTFIELDS, $postfields);
         }
+				echo($postfields."<br />");
         break;
       case 'DELETE':
         \curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'DELETE');
