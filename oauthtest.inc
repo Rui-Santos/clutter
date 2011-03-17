@@ -68,6 +68,27 @@ $test::$driver->init($access_token['oauth_token'], $access_token['oauth_token_se
 }
 var_dump($_SESSION);
 
+$user = $test::$driver->post('http://api.rdio.com/1/',
+																	 array(
+																				 'method' => 'currentUser'
+																	      )
+																	 );
+var_dump($user);
+$results = $test::$driver->post('http://api.rdio.com/1/',
+																	 array(
+																				 'method' => 'getAlbumsInCollection',
+																				 'types' => 'Album',
+																				 'user' => $user->result->key
+																	      )
+																	 );
+
+// var_dump($results);
+foreach($results->result as $album) {
+print '<img src="'.$album->icon.'" alt="" hspace="5" vspace="5" align="left">';
+
+}
+
+/*
 $results = $test::$driver->post('http://api.rdio.com/1/',
 																	 array(
 																				 'method' => 'search',
@@ -79,6 +100,8 @@ print "Driver is: ";
 var_dump($test::$driver);
 print "Result is: ";
 var_dump($results->result->results[0]);
+
+
 $tracks = $test::$driver->post('http://api.rdio.com/1/',
 																	 array(
 																				 'method' => 'getTracksForAlbumInCollection',
@@ -98,4 +121,5 @@ $playlist = $test::$driver->post('http://api.rdio.com/1/',
 																	 );
 var_dump($test::$driver);
 var_dump($playlist);
+*/
 ?>
