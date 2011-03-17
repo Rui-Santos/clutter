@@ -68,12 +68,34 @@ $test::$driver->init($access_token['oauth_token'], $access_token['oauth_token_se
 }
 var_dump($_SESSION);
 
-$results = $test::$driver->post('http://api.rdio.com/1/', 
+$results = $test::$driver->post('http://api.rdio.com/1/',
 																	 array(
-																				 'method' => 'currentUser'
+																				 'method' => 'search',
+																				 'query' => 'Supergrass',
+																				 'types' => 'Album'
+																	      )
+																	 );
+print "Driver is: ";
+var_dump($test::$driver);
+print "Result is: ";
+var_dump($results->result->results[0]);
+$tracks = $test::$driver->post('http://api.rdio.com/1/',
+																	 array(
+																				 'method' => 'getTracksForAlbumInCollection',
+																				 'album' => $results->result->results[0]->key,
+																				 'types' => 'Album'
+																	      )
+																	 );
+print "track result is: ";
+var_dump($tracks);
+$playlist = $test::$driver->post('http://api.rdio.com/1/',
+																	 array(
+																				 'method' => 'createPlaylist',
+																				 'name' => 'TestClutter',
+																				 'description' => 'Cross fingers',
+																				 'tracks' =>  $tracks->result
 																	      )
 																	 );
 var_dump($test::$driver);
-var_dump($results);
-
+var_dump($playlist);
 ?>
