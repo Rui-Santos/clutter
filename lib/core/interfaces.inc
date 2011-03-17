@@ -26,6 +26,10 @@ interface Driver extends Mixin {
 	public function __construct($options);
 	//function to return a result set.
 	public function query();
+	//return query details, usually for debugging.
+	public function getQueryDetails();
+	//returns true/false if the driver is clean (meaning no new query needs to be performed).
+	public function isClean();
 }
 
 ?>

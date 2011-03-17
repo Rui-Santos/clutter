@@ -6,6 +6,7 @@ if (!isset($_GET['oauth_token']) && $_SESSION['state']==1) {
 
 $test = new oauthtest();
 
+
 if(!isset($_GET['oauth_token']) && !$_SESSION['state']) {
 $_SESSION['state'] = 1; // 1 = we have tried to authenticate
 $test::$driver->init();
@@ -79,21 +80,13 @@ print "Driver is: ";
 var_dump($test::$driver);
 print "Result is: ";
 var_dump($results->result->results[0]);
-$tracks = $test::$driver->post('http://api.rdio.com/1/',
-																	 array(
-																				 'method' => 'getTracksForAlbumInCollection',
-																				 'album' => $results->result->results[0]->key,
-																				 'types' => 'Album'
-																	      )
-																	 );
-print "track result is: ";
-var_dump($tracks);
+$tracks = $results->result->results[0]->trackIDs;
 $playlist = $test::$driver->post('http://api.rdio.com/1/',
 																	 array(
 																				 'method' => 'createPlaylist',
 																				 'name' => 'TestClutter',
 																				 'description' => 'Cross fingers',
-																				 'tracks' =>  $tracks->result
+																				 'tracks' =>  "t".implode(',t',$tracks)
 																	      )
 																	 );
 var_dump($test::$driver);

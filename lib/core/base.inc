@@ -122,10 +122,10 @@ function enablePlugin($name) {
         $class = \Craft\util\Inflect::singularize($inflected);
       }
       $evil .= 'class ' . $class . ' extends \Craft\Object { };
-#class ' . $inflected . ' extends \Craft\Collection { };';
+class ' . $inflected . ' extends \Craft\Collection { };';
       eval( $evil );
       
-			//      Factory::associate( $inflected, $class ); //Shortcut to not have to singluarize inside the factory.
+      \Craft\Collection::associate( $inflected, $class ); //Shortcut to not have to singluarize inside the factory.
       if ( is_array( $myOptions ) ) {
         $defaultOptions = array ( 
           'factoryType' => $inflected,
