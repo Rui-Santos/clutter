@@ -26,7 +26,7 @@ class Rdio extends \Craft\Object implements \Craft\Interfaces\Driver {
   /* Set timeout default. */
   public $timeout = 30;
   /* Set connect timeout. */
-  public $connecttimeout = 30; 
+  public $connecttimeout = 30;
   /* Verify SSL Cert. */
   public $ssl_verifypeer = FALSE;
   /* Respons format. */
@@ -89,10 +89,10 @@ class Rdio extends \Craft\Object implements \Craft\Interfaces\Driver {
   function init($oauth_token = NULL, $oauth_token_secret = NULL, $consumer_key = NULL, $consumer_secret = NULL) {
 		if ($consumer_key == NULL) {
 			$consumer_key = $this->dOptions['consumerKey'];
-		} 
+		}
 		if ($consumer_secret == NULL) {
 			$consumer_secret = $this->dOptions['consumerSecret'];
-		} 
+		}
     $this->sha1_method = new \Craft\Drivers\Rdio\lib\OAuthSignatureMethod_HMAC_SHA1();
     $this->consumer = new \Craft\Drivers\Rdio\lib\OAuthConsumer($consumer_key, $consumer_secret);
     if (!empty($oauth_token) && !empty($oauth_token_secret)) {
@@ -165,7 +165,7 @@ class Rdio extends \Craft\Object implements \Craft\Interfaces\Driver {
    *                "user_id" => "9436992",
    *                "screen_name" => "abraham",
    *                "x_auth_expires" => "0")
-   */  
+   */
   function getXAuthToken($username, $password) {
     $parameters = array();
     $parameters['x_auth_username'] = $username;
@@ -187,7 +187,7 @@ class Rdio extends \Craft\Object implements \Craft\Interfaces\Driver {
     }
     return $response;
   }
-  
+
   /**
    * POST wrapper for oAuthRequest.
    */
