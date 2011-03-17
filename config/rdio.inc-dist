@@ -1,12 +1,11 @@
 <?php
-
+namespace Config;
 class Rdio extends \Config\prototype {
 	const appKey = '--your app key here--';
 	const sharedSecret = '-- your secret here--';
 	const myURL = '-- your app url here--';
 
-	/* These should be fine to leave alone. */
-	const rdioAPI = 'http://api.rdio.com/1/';
+	/* This should be fine to leave alone. */
 	const callback = 'oauth/callback';
 }
 
