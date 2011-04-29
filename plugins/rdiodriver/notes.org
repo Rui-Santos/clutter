@@ -1,0 +1,70 @@
+* Objects
+** Rdio (global, singular only)
+*** isAuthenticated
+*** authenticate
+*** getCurrentUser
+*** getNewReleases
+*** getPlaybackToken
+*** getTopCharts
+*** search
+** User
+*** current user only
+**** addFriend($user)
+**** getPlaylists()
+**** removeFriend()
+**** addToCollection($track_or_playlist)
+*** getActivityStream($scope, $last_id) == the scope of the activity stream, either "user", "friends" or "everyone", last_id =  id of activity stream to return
+*** getAlbumsInCollection
+*** getArtistsInCollection
+*** getHeavyRotation
+*** search
+** Album
+*** getTracksInCollection($user)
+*** removeFromCollection
+*** search
+** Artist
+*** getAlbums
+*** getAlbumsInCollection($user)
+*** getTracks
+*** getTracksInCollection($user)
+*** search
+** Track
+*** removePlaylist()
+*** search
+** Playlist
+*** create($name, $description, $tracks)
+*** delete
+*** removeFromCollection()
+*** removeTrack()
+*** search
+		
+* REST Methods -- http://developer.rdio.com/docs/read/rest/Methods
+** addFriend																													 :user:
+** addToCollection																					 :track:playlist:
+** addToPlaylist																											:track:
+** createPlaylist																											:track:
+** currentUser																												 :user:
+** deletePlaylist																									 :playlist:
+** findUser																														 :user:
+** get
+** getActivityStream																									 :user:
+** getAlbumsForArtist																					 :artist:album:
+** getAlbumsForArtistInCollection										:artist:album:collection:
+** getAlbumsInCollection																	 :album:collection:
+** getArtistsInCollection																	:artist:collection:
+** getHeavyRotation																						 :artist:album:
+** getNewReleases																											:album:
+** getObjectFromShortCode
+** getObjectFromUrl
+** getPlaybackToken
+** getPlaylists																								:playlist:user:
+** getTopCharts																	:artist:album:track:playlist:
+** getTracksForAlbumInCollection										 :track:album:collection:
+** getTracksForArtist																					 :track:artist:
+** getTracksForArtistInCollection										:track:artist:collection:
+** getTracksInCollection																	 :track:collection:
+** removeFriend																												 :user:
+** removeFromCollection														:track:playlist:collection:
+** removeFromPlaylist																				 :track:playlist:
+** search																	 :artist:album:track:playlist:user:
+** searchSuggestions											 :artist:album:track:playlist:user:

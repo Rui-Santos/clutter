@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>notes</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-03-17 14:55:33 "/>
+<meta name="author" content="Bryan P Johnson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">notes</h1>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Objects </a>
+<ul>
+<li><a href="#sec-1_1">1.1 Rdio (global, singular only) </a>
+<ul>
+<li><a href="#sec-1_1_1">1.1.1 isAuthenticated </a></li>
+<li><a href="#sec-1_1_2">1.1.2 authenticate </a></li>
+<li><a href="#sec-1_1_3">1.1.3 getCurrentUser </a></li>
+<li><a href="#sec-1_1_4">1.1.4 getNewReleases </a></li>
+<li><a href="#sec-1_1_5">1.1.5 getPlaybackToken </a></li>
+<li><a href="#sec-1_1_6">1.1.6 getTopCharts </a></li>
+<li><a href="#sec-1_1_7">1.1.7 search </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_2">1.2 User </a>
+<ul>
+<li><a href="#sec-1_2_1">1.2.1 current user only </a></li>
+<li><a href="#sec-1_2_2">1.2.2 getActivityStream($scope, $last<sub>id</sub>) == the scope of the activity stream, either "user", "friends" or "everyone", last<sub>id</sub> =  id of activity stream to return </a></li>
+<li><a href="#sec-1_2_3">1.2.3 getAlbumsInCollection </a></li>
+<li><a href="#sec-1_2_4">1.2.4 getArtistsInCollection </a></li>
+<li><a href="#sec-1_2_5">1.2.5 getHeavyRotation </a></li>
+<li><a href="#sec-1_2_6">1.2.6 search </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_3">1.3 Album </a>
+<ul>
+<li><a href="#sec-1_3_1">1.3.1 getTracksInCollection($user) </a></li>
+<li><a href="#sec-1_3_2">1.3.2 removeFromCollection </a></li>
+<li><a href="#sec-1_3_3">1.3.3 search </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_4">1.4 Artist </a>
+<ul>
+<li><a href="#sec-1_4_1">1.4.1 getAlbums </a></li>
+<li><a href="#sec-1_4_2">1.4.2 getAlbumsInCollection($user) </a></li>
+<li><a href="#sec-1_4_3">1.4.3 getTracks </a></li>
+<li><a href="#sec-1_4_4">1.4.4 getTracksInCollection($user) </a></li>
+<li><a href="#sec-1_4_5">1.4.5 search </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_5">1.5 Track </a>
+<ul>
+<li><a href="#sec-1_5_1">1.5.1 removePlaylist() </a></li>
+<li><a href="#sec-1_5_2">1.5.2 search </a></li>
+</ul>
+</li>
+<li><a href="#sec-1_6">1.6 Playlist </a>
+<ul>
+<li><a href="#sec-1_6_1">1.6.1 create($name, $description, $tracks) </a></li>
+<li><a href="#sec-1_6_2">1.6.2 delete </a></li>
+<li><a href="#sec-1_6_3">1.6.3 removeFromCollection() </a></li>
+<li><a href="#sec-1_6_4">1.6.4 removeTrack() </a></li>
+<li><a href="#sec-1_6_5">1.6.5 search </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 REST Methods &ndash; http://developer.rdio.com/docs/read/rest/Methods </a>
+<ul>
+<li><a href="#sec-2_1">2.1 addFriend</a></li>
+<li><a href="#sec-2_2">2.2 addToCollection</a></li>
+<li><a href="#sec-2_3">2.3 addToPlaylist</a></li>
+<li><a href="#sec-2_4">2.4 createPlaylist</a></li>
+<li><a href="#sec-2_5">2.5 currentUser</a></li>
+<li><a href="#sec-2_6">2.6 deletePlaylist</a></li>
+<li><a href="#sec-2_7">2.7 findUser</a></li>
+<li><a href="#sec-2_8">2.8 get </a></li>
+<li><a href="#sec-2_9">2.9 getActivityStream</a></li>
+<li><a href="#sec-2_10">2.10 getAlbumsForArtist</a></li>
+<li><a href="#sec-2_11">2.11 getAlbumsForArtistInCollection</a></li>
+<li><a href="#sec-2_12">2.12 getAlbumsInCollection</a></li>
+<li><a href="#sec-2_13">2.13 getArtistsInCollection</a></li>
+<li><a href="#sec-2_14">2.14 getHeavyRotation</a></li>
+<li><a href="#sec-2_15">2.15 getNewReleases</a></li>
+<li><a href="#sec-2_16">2.16 getObjectFromShortCode </a></li>
+<li><a href="#sec-2_17">2.17 getObjectFromUrl </a></li>
+<li><a href="#sec-2_18">2.18 getPlaybackToken </a></li>
+<li><a href="#sec-2_19">2.19 getPlaylists</a></li>
+<li><a href="#sec-2_20">2.20 getTopCharts</a></li>
+<li><a href="#sec-2_21">2.21 getTracksForAlbumInCollection</a></li>
+<li><a href="#sec-2_22">2.22 getTracksForArtist</a></li>
+<li><a href="#sec-2_23">2.23 getTracksForArtistInCollection</a></li>
+<li><a href="#sec-2_24">2.24 getTracksInCollection</a></li>
+<li><a href="#sec-2_25">2.25 removeFriend</a></li>
+<li><a href="#sec-2_26">2.26 removeFromCollection</a></li>
+<li><a href="#sec-2_27">2.27 removeFromPlaylist</a></li>
+<li><a href="#sec-2_28">2.28 search</a></li>
+<li><a href="#sec-2_29">2.29 searchSuggestions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Objects </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1_1" class="outline-3">
+<h3 id="sec-1_1"><span class="section-number-3">1.1</span> Rdio (global, singular only) </h3>
+<div class="outline-text-3" id="text-1_1">
+
+
+</div>
+
+<div id="outline-container-1_1_1" class="outline-4">
+<h4 id="sec-1_1_1"><span class="section-number-4">1.1.1</span> isAuthenticated </h4>
+<div class="outline-text-4" id="text-1_1_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_1_2" class="outline-4">
+<h4 id="sec-1_1_2"><span class="section-number-4">1.1.2</span> authenticate </h4>
+<div class="outline-text-4" id="text-1_1_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_1_3" class="outline-4">
+<h4 id="sec-1_1_3"><span class="section-number-4">1.1.3</span> getCurrentUser </h4>
+<div class="outline-text-4" id="text-1_1_3">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_1_4" class="outline-4">
+<h4 id="sec-1_1_4"><span class="section-number-4">1.1.4</span> getNewReleases </h4>
+<div class="outline-text-4" id="text-1_1_4">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_1_5" class="outline-4">
+<h4 id="sec-1_1_5"><span class="section-number-4">1.1.5</span> getPlaybackToken </h4>
+<div class="outline-text-4" id="text-1_1_5">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_1_6" class="outline-4">
+<h4 id="sec-1_1_6"><span class="section-number-4">1.1.6</span> getTopCharts </h4>
+<div class="outline-text-4" id="text-1_1_6">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_1_7" class="outline-4">
+<h4 id="sec-1_1_7"><span class="section-number-4">1.1.7</span> search </h4>
+<div class="outline-text-4" id="text-1_1_7">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_2" class="outline-3">
+<h3 id="sec-1_2"><span class="section-number-3">1.2</span> User </h3>
+<div class="outline-text-3" id="text-1_2">
+
+
+</div>
+
+<div id="outline-container-1_2_1" class="outline-4">
+<h4 id="sec-1_2_1"><span class="section-number-4">1.2.1</span> current user only </h4>
+<div class="outline-text-4" id="text-1_2_1">
+
+<ul>
+<li id="sec-1_2_1_1">addFriend($user) <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1_2_1_2">getPlaylists() <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1_2_1_3">removeFriend() <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-1_2_1_4">addToCollection($track<sub>or</sub><sub>playlist</sub>) <br/>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1_2_2" class="outline-4">
+<h4 id="sec-1_2_2"><span class="section-number-4">1.2.2</span> getActivityStream($scope, $last<sub>id</sub>) == the scope of the activity stream, either "user", "friends" or "everyone", last<sub>id</sub> =  id of activity stream to return </h4>
+<div class="outline-text-4" id="text-1_2_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_2_3" class="outline-4">
+<h4 id="sec-1_2_3"><span class="section-number-4">1.2.3</span> getAlbumsInCollection </h4>
+<div class="outline-text-4" id="text-1_2_3">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_2_4" class="outline-4">
+<h4 id="sec-1_2_4"><span class="section-number-4">1.2.4</span> getArtistsInCollection </h4>
+<div class="outline-text-4" id="text-1_2_4">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_2_5" class="outline-4">
+<h4 id="sec-1_2_5"><span class="section-number-4">1.2.5</span> getHeavyRotation </h4>
+<div class="outline-text-4" id="text-1_2_5">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_2_6" class="outline-4">
+<h4 id="sec-1_2_6"><span class="section-number-4">1.2.6</span> search </h4>
+<div class="outline-text-4" id="text-1_2_6">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_3" class="outline-3">
+<h3 id="sec-1_3"><span class="section-number-3">1.3</span> Album </h3>
+<div class="outline-text-3" id="text-1_3">
+
+
+</div>
+
+<div id="outline-container-1_3_1" class="outline-4">
+<h4 id="sec-1_3_1"><span class="section-number-4">1.3.1</span> getTracksInCollection($user) </h4>
+<div class="outline-text-4" id="text-1_3_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_3_2" class="outline-4">
+<h4 id="sec-1_3_2"><span class="section-number-4">1.3.2</span> removeFromCollection </h4>
+<div class="outline-text-4" id="text-1_3_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_3_3" class="outline-4">
+<h4 id="sec-1_3_3"><span class="section-number-4">1.3.3</span> search </h4>
+<div class="outline-text-4" id="text-1_3_3">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_4" class="outline-3">
+<h3 id="sec-1_4"><span class="section-number-3">1.4</span> Artist </h3>
+<div class="outline-text-3" id="text-1_4">
+
+
+</div>
+
+<div id="outline-container-1_4_1" class="outline-4">
+<h4 id="sec-1_4_1"><span class="section-number-4">1.4.1</span> getAlbums </h4>
+<div class="outline-text-4" id="text-1_4_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_4_2" class="outline-4">
+<h4 id="sec-1_4_2"><span class="section-number-4">1.4.2</span> getAlbumsInCollection($user) </h4>
+<div class="outline-text-4" id="text-1_4_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_4_3" class="outline-4">
+<h4 id="sec-1_4_3"><span class="section-number-4">1.4.3</span> getTracks </h4>
+<div class="outline-text-4" id="text-1_4_3">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_4_4" class="outline-4">
+<h4 id="sec-1_4_4"><span class="section-number-4">1.4.4</span> getTracksInCollection($user) </h4>
+<div class="outline-text-4" id="text-1_4_4">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_4_5" class="outline-4">
+<h4 id="sec-1_4_5"><span class="section-number-4">1.4.5</span> search </h4>
+<div class="outline-text-4" id="text-1_4_5">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_5" class="outline-3">
+<h3 id="sec-1_5"><span class="section-number-3">1.5</span> Track </h3>
+<div class="outline-text-3" id="text-1_5">
+
+
+</div>
+
+<div id="outline-container-1_5_1" class="outline-4">
+<h4 id="sec-1_5_1"><span class="section-number-4">1.5.1</span> removePlaylist() </h4>
+<div class="outline-text-4" id="text-1_5_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_5_2" class="outline-4">
+<h4 id="sec-1_5_2"><span class="section-number-4">1.5.2</span> search </h4>
+<div class="outline-text-4" id="text-1_5_2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1_6" class="outline-3">
+<h3 id="sec-1_6"><span class="section-number-3">1.6</span> Playlist </h3>
+<div class="outline-text-3" id="text-1_6">
+
+
+</div>
+
+<div id="outline-container-1_6_1" class="outline-4">
+<h4 id="sec-1_6_1"><span class="section-number-4">1.6.1</span> create($name, $description, $tracks) </h4>
+<div class="outline-text-4" id="text-1_6_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_6_2" class="outline-4">
+<h4 id="sec-1_6_2"><span class="section-number-4">1.6.2</span> delete </h4>
+<div class="outline-text-4" id="text-1_6_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_6_3" class="outline-4">
+<h4 id="sec-1_6_3"><span class="section-number-4">1.6.3</span> removeFromCollection() </h4>
+<div class="outline-text-4" id="text-1_6_3">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_6_4" class="outline-4">
+<h4 id="sec-1_6_4"><span class="section-number-4">1.6.4</span> removeTrack() </h4>
+<div class="outline-text-4" id="text-1_6_4">
+
+</div>
+
+</div>
+
+<div id="outline-container-1_6_5" class="outline-4">
+<h4 id="sec-1_6_5"><span class="section-number-4">1.6.5</span> search </h4>
+<div class="outline-text-4" id="text-1_6_5">
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> REST Methods &ndash; <a href="http://developer.rdio.com/docs/read/rest/Methods">http://developer.rdio.com/docs/read/rest/Methods</a> </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2_1" class="outline-3">
+<h3 id="sec-2_1"><span class="section-number-3">2.1</span> addFriend &nbsp;&nbsp;&nbsp;<span class="tag"><span class="user">user</span></span></h3>
+<div class="outline-text-3" id="text-2_1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_2" class="outline-3">
+<h3 id="sec-2_2"><span class="section-number-3">2.2</span> addToCollection &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span>&nbsp;<span class="playlist">playlist</span></span></h3>
+<div class="outline-text-3" id="text-2_2">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_3" class="outline-3">
+<h3 id="sec-2_3"><span class="section-number-3">2.3</span> addToPlaylist &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span></span></h3>
+<div class="outline-text-3" id="text-2_3">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_4" class="outline-3">
+<h3 id="sec-2_4"><span class="section-number-3">2.4</span> createPlaylist &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span></span></h3>
+<div class="outline-text-3" id="text-2_4">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_5" class="outline-3">
+<h3 id="sec-2_5"><span class="section-number-3">2.5</span> currentUser &nbsp;&nbsp;&nbsp;<span class="tag"><span class="user">user</span></span></h3>
+<div class="outline-text-3" id="text-2_5">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_6" class="outline-3">
+<h3 id="sec-2_6"><span class="section-number-3">2.6</span> deletePlaylist &nbsp;&nbsp;&nbsp;<span class="tag"><span class="playlist">playlist</span></span></h3>
+<div class="outline-text-3" id="text-2_6">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_7" class="outline-3">
+<h3 id="sec-2_7"><span class="section-number-3">2.7</span> findUser &nbsp;&nbsp;&nbsp;<span class="tag"><span class="user">user</span></span></h3>
+<div class="outline-text-3" id="text-2_7">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_8" class="outline-3">
+<h3 id="sec-2_8"><span class="section-number-3">2.8</span> get </h3>
+<div class="outline-text-3" id="text-2_8">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_9" class="outline-3">
+<h3 id="sec-2_9"><span class="section-number-3">2.9</span> getActivityStream &nbsp;&nbsp;&nbsp;<span class="tag"><span class="user">user</span></span></h3>
+<div class="outline-text-3" id="text-2_9">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_10" class="outline-3">
+<h3 id="sec-2_10"><span class="section-number-3">2.10</span> getAlbumsForArtist &nbsp;&nbsp;&nbsp;<span class="tag"><span class="artist">artist</span>&nbsp;<span class="album">album</span></span></h3>
+<div class="outline-text-3" id="text-2_10">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_11" class="outline-3">
+<h3 id="sec-2_11"><span class="section-number-3">2.11</span> getAlbumsForArtistInCollection &nbsp;&nbsp;&nbsp;<span class="tag"><span class="artist">artist</span>&nbsp;<span class="album">album</span>&nbsp;<span class="collection">collection</span></span></h3>
+<div class="outline-text-3" id="text-2_11">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_12" class="outline-3">
+<h3 id="sec-2_12"><span class="section-number-3">2.12</span> getAlbumsInCollection &nbsp;&nbsp;&nbsp;<span class="tag"><span class="album">album</span>&nbsp;<span class="collection">collection</span></span></h3>
+<div class="outline-text-3" id="text-2_12">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_13" class="outline-3">
+<h3 id="sec-2_13"><span class="section-number-3">2.13</span> getArtistsInCollection &nbsp;&nbsp;&nbsp;<span class="tag"><span class="artist">artist</span>&nbsp;<span class="collection">collection</span></span></h3>
+<div class="outline-text-3" id="text-2_13">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_14" class="outline-3">
+<h3 id="sec-2_14"><span class="section-number-3">2.14</span> getHeavyRotation &nbsp;&nbsp;&nbsp;<span class="tag"><span class="artist">artist</span>&nbsp;<span class="album">album</span></span></h3>
+<div class="outline-text-3" id="text-2_14">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_15" class="outline-3">
+<h3 id="sec-2_15"><span class="section-number-3">2.15</span> getNewReleases &nbsp;&nbsp;&nbsp;<span class="tag"><span class="album">album</span></span></h3>
+<div class="outline-text-3" id="text-2_15">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_16" class="outline-3">
+<h3 id="sec-2_16"><span class="section-number-3">2.16</span> getObjectFromShortCode </h3>
+<div class="outline-text-3" id="text-2_16">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_17" class="outline-3">
+<h3 id="sec-2_17"><span class="section-number-3">2.17</span> getObjectFromUrl </h3>
+<div class="outline-text-3" id="text-2_17">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_18" class="outline-3">
+<h3 id="sec-2_18"><span class="section-number-3">2.18</span> getPlaybackToken </h3>
+<div class="outline-text-3" id="text-2_18">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_19" class="outline-3">
+<h3 id="sec-2_19"><span class="section-number-3">2.19</span> getPlaylists &nbsp;&nbsp;&nbsp;<span class="tag"><span class="playlist">playlist</span>&nbsp;<span class="user">user</span></span></h3>
+<div class="outline-text-3" id="text-2_19">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_20" class="outline-3">
+<h3 id="sec-2_20"><span class="section-number-3">2.20</span> getTopCharts &nbsp;&nbsp;&nbsp;<span class="tag"><span class="artist">artist</span>&nbsp;<span class="album">album</span>&nbsp;<span class="track">track</span>&nbsp;<span class="playlist">playlist</span></span></h3>
+<div class="outline-text-3" id="text-2_20">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_21" class="outline-3">
+<h3 id="sec-2_21"><span class="section-number-3">2.21</span> getTracksForAlbumInCollection &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span>&nbsp;<span class="album">album</span>&nbsp;<span class="collection">collection</span></span></h3>
+<div class="outline-text-3" id="text-2_21">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_22" class="outline-3">
+<h3 id="sec-2_22"><span class="section-number-3">2.22</span> getTracksForArtist &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span>&nbsp;<span class="artist">artist</span></span></h3>
+<div class="outline-text-3" id="text-2_22">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_23" class="outline-3">
+<h3 id="sec-2_23"><span class="section-number-3">2.23</span> getTracksForArtistInCollection &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span>&nbsp;<span class="artist">artist</span>&nbsp;<span class="collection">collection</span></span></h3>
+<div class="outline-text-3" id="text-2_23">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_24" class="outline-3">
+<h3 id="sec-2_24"><span class="section-number-3">2.24</span> getTracksInCollection &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span>&nbsp;<span class="collection">collection</span></span></h3>
+<div class="outline-text-3" id="text-2_24">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_25" class="outline-3">
+<h3 id="sec-2_25"><span class="section-number-3">2.25</span> removeFriend &nbsp;&nbsp;&nbsp;<span class="tag"><span class="user">user</span></span></h3>
+<div class="outline-text-3" id="text-2_25">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_26" class="outline-3">
+<h3 id="sec-2_26"><span class="section-number-3">2.26</span> removeFromCollection &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span>&nbsp;<span class="playlist">playlist</span>&nbsp;<span class="collection">collection</span></span></h3>
+<div class="outline-text-3" id="text-2_26">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_27" class="outline-3">
+<h3 id="sec-2_27"><span class="section-number-3">2.27</span> removeFromPlaylist &nbsp;&nbsp;&nbsp;<span class="tag"><span class="track">track</span>&nbsp;<span class="playlist">playlist</span></span></h3>
+<div class="outline-text-3" id="text-2_27">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_28" class="outline-3">
+<h3 id="sec-2_28"><span class="section-number-3">2.28</span> search &nbsp;&nbsp;&nbsp;<span class="tag"><span class="artist">artist</span>&nbsp;<span class="album">album</span>&nbsp;<span class="track">track</span>&nbsp;<span class="playlist">playlist</span>&nbsp;<span class="user">user</span></span></h3>
+<div class="outline-text-3" id="text-2_28">
+
+</div>
+
+</div>
+
+<div id="outline-container-2_29" class="outline-3">
+<h3 id="sec-2_29"><span class="section-number-3">2.29</span> searchSuggestions &nbsp;&nbsp;&nbsp;<span class="tag"><span class="artist">artist</span>&nbsp;<span class="album">album</span>&nbsp;<span class="track">track</span>&nbsp;<span class="playlist">playlist</span>&nbsp;<span class="user">user</span></span></h3>
+<div class="outline-text-3" id="text-2_29">
+
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="author">Author: Bryan P Johnson (<a href="mailto:bryan@12ftguru.com">bryan@12ftguru.com</a>)</p>
+<p class="date">Date: 2011-03-17 14:55:33 </p>
+<p class="creator">Generated by Org version 7.4 with Emacs version 23</p>
+<p class="xhtml-validation"><a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a></p>
+</div>
+</div>
+</body>
+</html>

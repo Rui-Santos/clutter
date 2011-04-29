@@ -4,6 +4,7 @@ if (!isset($_GET['oauth_token']) && $_SESSION['state']==1) {
 	$_SESSION['state'] = 0; // no authentication yet.
 }
 
+
 $test = new oauthtest();
 
 
