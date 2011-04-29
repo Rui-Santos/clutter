@@ -70,18 +70,82 @@ $test::$driver->init($access_token['oauth_token'], $access_token['oauth_token_se
 }
 var_dump($_SESSION);
 
-$results = $test::$driver->post('http://api.rdio.com/1/',
+$user = $test::$driver->post('http://api.rdio.com/1/',
 																	 array(
-																				 'method' => 'search',
-																				 'query' => 'Supergrass',
-																				 'types' => 'Album'
+																				 'method' => 'currentUser'
 																	      )
 																	 );
+var_dump($user);
+/*
+$playlists = $test::$driver->post('http://api.rdio.com/1/',
+																	 array(
+																				 'method' => 'getPlaylists'
+																	      )
+																	 );
+var_dump($playlists);
+foreach($playlists->result->owned as $playlist) {
+print $playlist->name.' - '.$playlist->key.'<br />';
+
+}
+*/
+
+/* uncomment and add keys to the album array
+$albumArray = array();
+foreach($albumArray as $albumID) {
+  $album = $test::$driver->post('http://api.rdio.com/1/',
+                                     array(
+                                           'method' => 'getTracksForAlbumInCollection',
+                                           'album' => $albumID,
+                                           'user' => $user->result->key
+                                          )
+                                     );
+
+  //var_dump($album);
+  $trackList = array();
+  foreach($album->result as $track) {
+    $trackList[] = $track->key;
+  }
+
+  $results = $test::$driver->post('http://api.rdio.com/1/',
+                                     array(
+                                           'method' => 'addToPlaylist',
+                                           'playlist' => 'p86083',
+                                           'tracks' => implode(",", $trackList)
+                                          )
+                                     );
+  $trackList = array();
+  var_dump($results);
+}
+end album array function */
+
+/*
+$results = $test::$driver->post('http://api.rdio.com/1/',
+																	 array(
+																				 'method' => 'getAlbumsInCollection',
+																				 'types' => 'Album',
+																				 'user' => $user->result->key
+																	      )
+																	 );
+//var_dump($results->result[0]);
+// var_dump($results);
+
+foreach($results->result as $album) {
+print $album->artist.': '.$album->name.' - '.$album->key.'<br />';
+
+}
+
+
+*/
+
+
+
+/*
 print "Driver is: ";
 var_dump($test::$driver);
 print "Result is: ";
 var_dump($results->result->results[0]);
 $tracks = $results->result->results[0]->trackIDs;
+
 $playlist = $test::$driver->post('http://api.rdio.com/1/',
 																	 array(
 																				 'method' => 'createPlaylist',
@@ -92,4 +156,5 @@ $playlist = $test::$driver->post('http://api.rdio.com/1/',
 																	 );
 var_dump($test::$driver);
 var_dump($playlist);
+*/
 ?>
